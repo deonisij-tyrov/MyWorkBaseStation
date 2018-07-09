@@ -20,11 +20,13 @@ public class CellDAOImpl implements CellDAO {
     private static final String getBaseStation = "SELECT * FROM bs WHERE id = ?;";
     private static final String getAllCell = "SELECT * FROM cell";
     private static volatile CellDAO INSTANCE = null;
-    ThreadLocal<Connection> threadConnection;
+    private ThreadLocal<Connection> threadConnection;
+    private Connection connection;
 
     public CellDAOImpl() {
-        threadConnection = new ThreadLocal<>();
-        threadConnection.set(ConnectionManager.getConnection());
+//        threadConnection = new ThreadLocal<>();
+//        threadConnection.set(ConnectionManager.getConnection());
+        connection = ConnectionManager.getConnection();
     }
 
     public static CellDAO getInstance() {

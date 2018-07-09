@@ -1,6 +1,8 @@
 package web;
 
 import entities.Cell;
+import services.CellService;
+import services.impl.CellServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +13,7 @@ import java.io.IOException;
 
 @WebServlet("/add")
 public class AddCell extends HttpServlet {
-
+    private CellService cellService = CellServiceImpl.getInstance();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().write("<html>" +
@@ -34,6 +36,7 @@ public class AddCell extends HttpServlet {
         int power = Integer.parseInt(req.getParameter("power"));
         int bsNumber = Integer.parseInt(req.getParameter("bsNumber"));
         int band = Integer.parseInt(req.getParameter("band"));
+        cellService.save(new Cell(name, sector, power, bsNumber, band));
 //        System.out.println(new Cell(name, sector, power, bsNumber, band).toString());
         doGet(req,resp);
     }
