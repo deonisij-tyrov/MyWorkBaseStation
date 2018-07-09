@@ -38,6 +38,7 @@ public class ConnectionManager {
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DbManagerRuntimeExeption("Error getting connection " + e.getMessage());
         }
     }
