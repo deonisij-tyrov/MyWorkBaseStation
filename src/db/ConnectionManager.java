@@ -42,6 +42,7 @@ public class ConnectionManager {
             }
             return threadLocal.get();
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new DbManagerRuntimeExeption("Error getting connection " + e.getMessage());
         }
     }
