@@ -15,7 +15,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/cell")
 public class ReadCell extends HttpServlet {
-//    private CellService cellService = CellServiceImpl.getInstance();
+    private CellService cellService = CellServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,8 +29,8 @@ public class ReadCell extends HttpServlet {
             printWriter.print("Not Found param");
             return;
         }
-//        Cell cell = cellService.get(cellId);
-        Cell cell = new Cell(1,"test", 1,400,1000,3);
+        Cell cell = cellService.get(cellId);
+//        Cell cell = new Cell(1,"test", 1,400,1000,3);
         printWriter.print("<html>\n<head>\n<title>Cookie test</title></head>\n" +
                 "  <body>cell");
         printWriter.print(cell.toString());

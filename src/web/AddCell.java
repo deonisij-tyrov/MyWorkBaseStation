@@ -34,7 +34,7 @@ public class AddCell extends HttpServlet {
         int power = Integer.parseInt(req.getParameter("power"));
         int bsNumber = Integer.parseInt(req.getParameter("bsNumber"));
         int band = Integer.parseInt(req.getParameter("band"));
-        System.out.println(new Cell(name, sector, power, bsNumber, band).toString());
+//        System.out.println(new Cell(name, sector, power, bsNumber, band).toString());
         doGet(req,resp);
     }
 }
