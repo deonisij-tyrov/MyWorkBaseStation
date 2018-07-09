@@ -11,6 +11,7 @@ public class ConnectionManager {
     private static final String PASSWORD;
     private static ResourceBundle resourceBundle;
     private static volatile boolean isDriverLoaded = false;
+    private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 
     static {
         resourceBundle = ResourceBundle.getBundle("db");
@@ -36,7 +37,10 @@ public class ConnectionManager {
             throw new DbManagerRuntimeExeption("The driver is not loaded");
         }
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            if (threadLocal.get() == null) {
+                threadLocal.set(DriverManager.getConnection(URL, USER, PASSWORD));
+            }
+            return threadLocal.get();
         } catch (SQLException e) {
             throw new DbManagerRuntimeExeption("Error getting connection " + e.getMessage());
         }

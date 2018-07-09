@@ -21,8 +21,8 @@ public class ReadCell extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long cellId;
         PrintWriter printWriter = resp.getWriter();
-        if (req.getAttribute("cell") != null) {
-            cellId = (long) req.getAttribute("cell");
+        if (req.getParameter("cell") != null) {
+            cellId = Long.parseLong(req.getParameter("cell"));
         } else if (req.getSession().getAttribute("cell") != null) {
             cellId = (long) req.getSession().getAttribute("cell");
         } else {
@@ -30,9 +30,7 @@ public class ReadCell extends HttpServlet {
             return;
         }
         Cell cell = cellService.get(cellId);
-        printWriter.print("<html>\n<head>\n<title>Cookie test</title></head>\n" +
-                "  <body>Orders<br/><table><tr><th>Order Id</th><th>User Id</th><th>Sum</th></tr>");
+//        Cell cell = new Cell(1,"test", 1,400,1000,3);
         printWriter.print(cell.toString());
-        printWriter.print("</table></body></html>");
     }
 }

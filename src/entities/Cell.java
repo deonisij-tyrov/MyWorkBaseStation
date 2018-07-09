@@ -104,6 +104,7 @@ public class Cell {
 
     @Override
     public String toString() {
+
         return "Cell{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
