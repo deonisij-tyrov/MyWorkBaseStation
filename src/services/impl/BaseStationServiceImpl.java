@@ -37,7 +37,7 @@ public class BaseStationServiceImpl implements BaseStationService {
     public BaseStation save(BaseStation baseStation) {
         try {
             baseStationDao.save(baseStation);
-            cellDao.addCallsByBaseStation(baseStation);
+//            cellDao.addCallsByBaseStation(baseStation);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error creating baseStation" + baseStation);
         }

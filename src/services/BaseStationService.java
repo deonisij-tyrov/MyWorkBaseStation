@@ -6,11 +6,11 @@ import entities.Item;
 
 public interface BaseStationService {
 
-    BaseStation save(BaseStation cell);
+    BaseStation save(BaseStation baseStation);
 
     BaseStation get(Long id);
 
-    void update(BaseStation cell);
+    void update(BaseStation baseStation);
 
     int delete(Long id);
 
