@@ -23,7 +23,8 @@
     <orderEntry type="library" name="servlet-api" level="project" />
     <orderEntry type="library" name="mysql-connector-java-5.1.40-bin" level="project" />
     <orderEntry type="library" name="c3p0:c3p0:0.9.1" level="project" />
-    <orderEntry type="library" name="standard" level="project" />
+    <orderEntry type="library" scope="TEST" name="standard" level="project" />
     <orderEntry type="library" name="jstl-1.2" level="project" />
+    <orderEntry type="library" name="lombok" level="project" />
   </component>
 </module>
