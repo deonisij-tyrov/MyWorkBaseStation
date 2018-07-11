@@ -1,7 +1,7 @@
 package services.impl;
 
-import dao.CellDAO;
-import dao.impl.CellDAOImpl;
+import dao.CellDao;
+import dao.impl.CellDaoImpl;
 import entities.BaseStation;
 import entities.Cell;
 import services.CellService;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CellServiceImpl extends AbstractService implements CellService {
     private static volatile CellService INSTANCE = null;
-    private CellDAO cellDAO = CellDAOImpl.getInstance();
+    private CellDao cellDao = CellDaoImpl.getInstance();
 
     public static CellService getInstance() {
         CellService cellService = INSTANCE;
@@ -30,7 +30,7 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public Cell save(Cell cell) {
         try {
-            cell = cellDAO.save(cell);
+            cell = cellDao.save(cell);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error creating cell" + cell);
         }
@@ -40,7 +40,7 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public Cell get(Long id) {
         try {
-            return cellDAO.get(id);
+            return cellDao.get(id);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error geting cell by id" + id);
         }
@@ -49,7 +49,7 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public void update(Cell cell) {
         try {
-            cellDAO.update(cell);
+            cellDao.update(cell);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error updating cell" + cell);
         }
@@ -58,7 +58,7 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public int delete(Long id) {
         try {
-            return cellDAO.delete(id);
+            return cellDao.delete(id);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error deleting by id" + id);
         }
@@ -68,7 +68,7 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public List<Cell> getByBaseStation(BaseStation baseStation) {
         try {
-            return cellDAO.getCellByBaseStation(baseStation);
+            return cellDao.getCellByBaseStation(baseStation);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error getting cells by base station" + baseStation);
         }

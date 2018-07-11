@@ -2,8 +2,8 @@ package entities;
 
 
 
-import java.util.Objects;
 
+import java.util.Objects;
 
 public class Cell {
     private long id;
@@ -14,7 +14,6 @@ public class Cell {
     private int band;
 
     public Cell(String name, int sector, int power, long bsNumber, int band) {
-        this.id = id;
         this.name = name;
         this.sector = sector;
         this.power = power;

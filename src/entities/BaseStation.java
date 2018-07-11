@@ -8,11 +8,36 @@ public class BaseStation {
     private long id;
     private String name;
     private List<Cell> cells;
+    private List<Board> boards;
 
     public BaseStation(long id, String name, List<Cell> cells) {
         this.id = id;
         this.name = name;
         this.cells = cells;
+    }
+
+    public BaseStation(long id, String name, List<Cell> cells, List<Board> boards) {
+
+        this.id = id;
+        this.name = name;
+        this.cells = cells;
+        this.boards = boards;
+    }
+
+    public BaseStation(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public BaseStation() {
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
     }
 
     public long getId() {
@@ -54,5 +79,14 @@ public class BaseStation {
     public int hashCode() {
 
         return Objects.hash(super.hashCode(), id, name, cells);
+    }
+
+    @Override
+    public String toString() {
+        return "BaseStation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cells=" + cells +
+                '}';
     }
 }

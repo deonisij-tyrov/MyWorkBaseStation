@@ -1,8 +1,7 @@
 package dao.impl;
 
 
-import dao.CellDAO;
-import db.ConnectionManager;
+import dao.CellDao;
 import entities.BaseStation;
 import entities.Cell;
 
@@ -10,61 +9,52 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CellDAOImpl implements CellDAO {
+public class CellDaoImpl extends AbstractDao implements CellDao {
     private static final String creatCellQuery = "INSERT INTO cell (id, cell_name, sector, power_id, bs_id, band_id) VALUES (DEFAULT, ?, ?, ?, ?, ?);";
     private static final String updateCellQuery = "SET cell_name = ?, sector = ?,power = ?, bs_id = ?, band_id = ? WHERE id = ?;";
     private static final String readCellQuery = "SELECT * FROM cell WHERE id = ?;";
     private static final String deleteCellQuery = "DELETE FROM cell WHERE id = ?;";
-    private static final String getReadCellQueryByBaseStation = "SELECT * FROM cell WHERE bs_id = ?;";
-    private static final String creatBaseStation = "INSERT INTO bs (id, name) VALUES (?, ?);";
-    private static final String getBaseStation = "SELECT * FROM bs WHERE id = ?;";
-    private static final String getAllCell = "SELECT * FROM cell";
-    private static volatile CellDAO INSTANCE = null;
-    Connection connection;
+    private static final String getReadCellByBaseStationQuery = "SELECT * FROM cell WHERE bs_id = ?;";
+    private static final String getAllCellQuery = "SELECT * FROM cell";
+    private static volatile CellDao INSTANCE = null;
 
-    public CellDAOImpl() {
-        connection = ConnectionManager.getConnection();
+
+    private CellDaoImpl() {
     }
 
-    public static CellDAO getInstance() {
-        CellDAO cellDAO = INSTANCE;
-        if (cellDAO == null) {
-            synchronized (CellDAOImpl.class) {
-                cellDAO = INSTANCE;
-                if (cellDAO == null) {
-                    INSTANCE = cellDAO = new CellDAOImpl();
+    public static CellDao getInstance() {
+        CellDao cellDao = INSTANCE;
+        if (cellDao == null) {
+            synchronized (CellDaoImpl.class) {
+                cellDao = INSTANCE;
+                if (cellDao == null) {
+                    INSTANCE = cellDao = new CellDaoImpl();
                 }
             }
         }
-        return cellDAO;
+        return cellDao;
     }
 
-    private static void close(ResultSet resultSet) {
-        try {
-            if (resultSet != null)
-                resultSet.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @Override
     public List<Cell> getCellByBaseStation(BaseStation baseStation) throws SQLException {
-        PreparedStatement psReadByBaseStation = connection.prepareStatement(getReadCellQueryByBaseStation);
+        PreparedStatement psReadByBaseStation = prepareStatement(getReadCellByBaseStationQuery);
         ArrayList<Cell> list = new ArrayList<>();
         psReadByBaseStation.setLong(1, baseStation.getId());
-        ResultSet resultSet = psReadByBaseStation.executeQuery();
+        psReadByBaseStation.executeQuery();
+        ResultSet resultSet = psReadByBaseStation.getResultSet();
         addCellToList(list, resultSet);
         close(resultSet);
         return list;
     }
 
     @Override
-    public void addNewBaseStationCells(BaseStation baseStation) throws SQLException {
+    public void addCallsByBaseStation(BaseStation baseStation) throws SQLException {
+        PreparedStatement preparedStatement = prepareStatement(creatCellQuery);
+        Connection connection = preparedStatement.getConnection();
         try {
             connection.setAutoCommit(false);
-            addNewBaseStationIfNotExist(connection, baseStation);
-            PreparedStatement preparedStatement = connection.prepareStatement(creatCellQuery);
             for (Cell cell : baseStation.getCells()) {
                 preparedStatement.setString(1, cell.getName());
                 preparedStatement.setInt(2, cell.getSector());
@@ -80,22 +70,11 @@ public class CellDAOImpl implements CellDAO {
         }
     }
 
-    private void addNewBaseStationIfNotExist(Connection connection, BaseStation baseStation) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement(getBaseStation);
-        preparedStatement.setLong(1, baseStation.getId());
-        ResultSet resultSet = preparedStatement.getResultSet();
-        if (!resultSet.next()) {
-            preparedStatement = connection.prepareStatement(creatBaseStation);
-            preparedStatement.setLong(1, baseStation.getId());
-            preparedStatement.setString(2, baseStation.getName());
-            preparedStatement.executeUpdate();
-        }
-        close(resultSet);
-    }
+
 
     @Override
     public Cell save(Cell cell) throws SQLException {
-        PreparedStatement psCreate = connection.prepareStatement(creatCellQuery, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement psCreate = prepareStatement(creatCellQuery, Statement.RETURN_GENERATED_KEYS);
         psCreate.setString(1, cell.getName());
         psCreate.setInt(2, cell.getSector());
         psCreate.setInt(3, cell.getPower());
@@ -112,7 +91,7 @@ public class CellDAOImpl implements CellDAO {
 
     @Override
     public Cell get(Long id) throws SQLException {
-        PreparedStatement psRead = connection.prepareStatement(readCellQuery);
+        PreparedStatement psRead = prepareStatement(readCellQuery);
         Cell cell = new Cell();
         psRead.setLong(1, id);
         psRead.executeQuery();
@@ -132,7 +111,7 @@ public class CellDAOImpl implements CellDAO {
 
     @Override
     public void update(Cell cell) throws SQLException {
-        PreparedStatement psUpdate = connection.prepareStatement(updateCellQuery);
+        PreparedStatement psUpdate = prepareStatement(updateCellQuery);
         psUpdate.setString(1, cell.getName());
         psUpdate.setInt(2, cell.getSector());
         psUpdate.setInt(3, cell.getPower());
@@ -144,7 +123,7 @@ public class CellDAOImpl implements CellDAO {
 
     @Override
     public int delete(Long id) throws SQLException {
-        PreparedStatement psDelete = connection.prepareStatement(deleteCellQuery);
+        PreparedStatement psDelete = prepareStatement(deleteCellQuery);
         psDelete.setLong(1, id);
         return psDelete.executeUpdate();
     }
@@ -152,7 +131,7 @@ public class CellDAOImpl implements CellDAO {
     @Override
     public List<Cell> readAll() throws SQLException {
         List<Cell> list = new ArrayList<>();
-        PreparedStatement psReadAll = connection.prepareStatement(getAllCell);
+        PreparedStatement psReadAll = prepareStatement(getAllCellQuery);
         psReadAll.executeQuery();
         ResultSet resultSet = psReadAll.getResultSet();
         addCellToList(list, resultSet);
