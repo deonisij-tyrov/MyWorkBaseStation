@@ -75,7 +75,7 @@ public class ItemDaoImpl extends AbstractDao implements ItemDao {
 
     @Override
     public int deleteByBaseStation(Long idBaseStation) throws SQLException {
-        PreparedStatement psDelete = prepareStatement(deleteItemQuery);
+        PreparedStatement psDelete = prepareStatement(deleteItemsByBaseStationQuery);
         psDelete.setLong(1, idBaseStation);
         return psDelete.executeUpdate();
     }

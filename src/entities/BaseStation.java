@@ -30,7 +30,7 @@ public class BaseStation {
     }
 
     public BaseStation() {
-    }
+   }
 
     public List<Board> getBoards() {
         return boards;
