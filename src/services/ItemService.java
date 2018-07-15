@@ -2,9 +2,6 @@ package services;
 
 import entities.Item;
 
-import java.io.Serializable;
-import java.util.List;
-
 public interface ItemService {
     Item save(Item item);
 

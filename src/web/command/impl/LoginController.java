@@ -3,7 +3,6 @@ package web.command.impl;
 import entities.User;
 import services.UserService;
 import services.impl.UserServiceImpl;
-import web.auth.Encoder;
 import web.command.Controller;
 
 import javax.servlet.RequestDispatcher;
@@ -22,18 +21,18 @@ public class LoginController implements Controller {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (login==null || password==null) {
+        if (login == null || password == null) {
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             req.setAttribute("title", "Login form");
             dispatcher.forward(req, resp);
             return;
         }
         User user = userService.getByLogin(login);
-        if (user != null && user.getPassword().equals(Encoder.encode(password))) {
-//        if (user != null && password.equals(user.getPassword())) {
+//        if (user != null && user.getPassword().equals(Encoder.encode(password))) {
+        if (user != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("user", user);
             String contextPath = req.getContextPath();
-            resp.sendRedirect(contextPath+ "/frontController?command=orders");
+            resp.sendRedirect(contextPath + "/frontController?command=stations");
             return;
         } else {
             req.setAttribute("errorMsg", "Invalid Login or Password");

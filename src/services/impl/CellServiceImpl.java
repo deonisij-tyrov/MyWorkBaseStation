@@ -1,8 +1,8 @@
 package services.impl;
 
 import dao.CellDao;
+import dao.DaoExeption;
 import dao.impl.CellDaoImpl;
-import entities.BaseStation;
 import entities.Cell;
 import services.CellService;
 import services.ServiceRuntimeExeption;
@@ -33,6 +33,8 @@ public class CellServiceImpl extends AbstractService implements CellService {
             cell = cellDao.save(cell);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error creating cell" + cell);
+        } catch (DaoExeption e) {
+            throw new ServiceRuntimeExeption("Error creating cell" + e.getMessage());
         }
         return cell;
     }
@@ -66,11 +68,11 @@ public class CellServiceImpl extends AbstractService implements CellService {
     }
 
     @Override
-    public List<Cell> getByBaseStation(BaseStation baseStation) {
+    public List<Cell> getByBaseStationId(Long baseStationId) {
         try {
-            return cellDao.getCellByBaseStation(baseStation);
+            return cellDao.getCellByBaseStationId(baseStationId);
         } catch (SQLException e) {
-            throw new ServiceRuntimeExeption("Error getting cells by base station" + baseStation);
+            throw new ServiceRuntimeExeption("Error getting cells by base station" + baseStationId);
         }
     }
 }

@@ -13,6 +13,7 @@ import services.BaseStationService;
 import services.ServiceRuntimeExeption;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class BaseStationServiceImpl implements BaseStationService {
     private static volatile BaseStationService INSTANCE = null;
@@ -81,6 +82,15 @@ public class BaseStationServiceImpl implements BaseStationService {
             return itemDao.save(item);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error addBoard baseStation" + baseStation);
+        }
+    }
+
+    @Override
+    public List<BaseStation> getAll() {
+        try {
+            return baseStationDao.getAll();
+        } catch (SQLException e) {
+            throw new ServiceRuntimeExeption("Error getting baseStations");
         }
     }
 }

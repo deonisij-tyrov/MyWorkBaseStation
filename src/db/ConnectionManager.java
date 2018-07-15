@@ -1,9 +1,6 @@
 package db;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class ConnectionManager {
     private static ThreadLocal<Connection> tl = new ThreadLocal<>();
@@ -15,7 +12,7 @@ public class ConnectionManager {
             }
             return tl.get();
         } catch (Exception e) {
-            throw new DbManagerRuntimeExeption("Ошибка получения соединения " +  e.getMessage());
+            throw new DbManagerRuntimeExeption("Ошибка получения соединения " + e.getMessage());
         }
     }
 }

@@ -13,7 +13,7 @@ import java.io.IOException;
 
 /**
  * Class AuthFilter
- *
+ * <p>
  * Created by yslabko on 08/11/2017.
  */
 @WebFilter(urlPatterns = {"/frontController"})
@@ -25,18 +25,18 @@ public class AuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         CommandType type = RequestHandler.getCommand(req);
-//        if (ORDERS.equals(type)) {
-//            String contextPath = req.getContextPath();
-//            HttpSession session = req.getSession();
-//            if((session.getAttribute("user") == null)) {
-//                res.sendRedirect(contextPath + "/frontController?command=login");
-//                return;
-//            }
-//        }
+        if (!CommandType.LOGIN.equals(type)) {
+            String contextPath = req.getContextPath();
+            HttpSession session = req.getSession();
+            if ((session.getAttribute("user") == null)) {
+                res.sendRedirect(contextPath + "/frontController?command=login");
+                return;
+            }
+        }
         chain.doFilter(request, response);
     }
 

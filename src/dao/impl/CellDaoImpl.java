@@ -1,7 +1,9 @@
 package dao.impl;
 
 
+import dao.BaseStationDao;
 import dao.CellDao;
+import dao.DaoExeption;
 import entities.BaseStation;
 import entities.Cell;
 
@@ -11,12 +13,13 @@ import java.util.List;
 
 public class CellDaoImpl extends AbstractDao implements CellDao {
     private static final String creatCellQuery = "INSERT INTO cell (id, cell_name, sector, power_id, bs_id, band_id) VALUES (DEFAULT, ?, ?, ?, ?, ?);";
-    private static final String updateCellQuery = "SET cell_name = ?, sector = ?,power = ?, bs_id = ?, band_id = ? WHERE id = ?;";
+    private static final String updateCellQuery = "UPDATE cell SET cell_name = ?, sector = ?,power_id = ?, bs_id = ?, band_id = ? WHERE id = ?;";
     private static final String readCellQuery = "SELECT * FROM cell WHERE id = ?;";
     private static final String deleteCellQuery = "DELETE FROM cell WHERE id = ?;";
     private static final String getReadCellByBaseStationQuery = "SELECT * FROM cell WHERE bs_id = ?;";
     private static final String getAllCellQuery = "SELECT * FROM cell";
     private static volatile CellDao INSTANCE = null;
+    private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
 
 
     private CellDaoImpl() {
@@ -36,12 +39,11 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
     }
 
 
-
     @Override
-    public List<Cell> getCellByBaseStation(BaseStation baseStation) throws SQLException {
+    public List<Cell> getCellByBaseStationId(Long baseStationId) throws SQLException {
         PreparedStatement psReadByBaseStation = prepareStatement(getReadCellByBaseStationQuery);
         ArrayList<Cell> list = new ArrayList<>();
-        psReadByBaseStation.setLong(1, baseStation.getId());
+        psReadByBaseStation.setLong(1, baseStationId);
         psReadByBaseStation.executeQuery();
         ResultSet resultSet = psReadByBaseStation.getResultSet();
         addCellToList(list, resultSet);
@@ -71,7 +73,6 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
     }
 
 
-
     @Override
     public Cell save(Cell cell) throws SQLException {
         PreparedStatement psCreate = prepareStatement(creatCellQuery, Statement.RETURN_GENERATED_KEYS);
@@ -82,9 +83,6 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
         psCreate.setLong(5, cell.getBand());
         psCreate.executeUpdate();
         ResultSet resultSet = psCreate.getGeneratedKeys();
-        if (resultSet.next()) {
-            cell.setId(resultSet.getLong(1));
-        }
         close(resultSet);
         return cell;
     }
@@ -110,7 +108,11 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
     }
 
     @Override
-    public void update(Cell cell) throws SQLException {
+    public void update(Cell cell) throws SQLException, DaoExeption {
+        Long idBaseStation = cell.getBsNumber();
+        if (baseStationDao.get(idBaseStation) == null) {
+            throw new DaoExeption("Base station does not exist");
+        }
         PreparedStatement psUpdate = prepareStatement(updateCellQuery);
         psUpdate.setString(1, cell.getName());
         psUpdate.setInt(2, cell.getSector());

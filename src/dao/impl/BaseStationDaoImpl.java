@@ -34,7 +34,7 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
     }
 
     @Override
-    public List<BaseStation> readAll() throws SQLException {
+    public List<BaseStation> getAll() throws SQLException {
         List<BaseStation> list = new ArrayList<>();
         PreparedStatement psReadAll = prepareStatement(getAllBaseStationQuery);
         psReadAll.executeQuery();

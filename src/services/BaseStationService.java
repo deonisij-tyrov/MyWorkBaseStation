@@ -4,6 +4,8 @@ import entities.BaseStation;
 import entities.Board;
 import entities.Item;
 
+import java.util.List;
+
 public interface BaseStationService {
 
     BaseStation save(BaseStation baseStation);
@@ -15,4 +17,6 @@ public interface BaseStationService {
     int delete(Long id);
 
     Item addBoard(Board board, BaseStation baseStation);
+
+    List<BaseStation> getAll();
 }

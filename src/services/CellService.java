@@ -1,6 +1,5 @@
 package services;
 
-import entities.BaseStation;
 import entities.Cell;
 
 import java.util.List;
@@ -15,5 +14,5 @@ public interface CellService {
 
     int delete(Long id);
 
-    List<Cell> getByBaseStation(BaseStation baseStation);
+    List<Cell> getByBaseStationId(Long baseStationId);
 }
