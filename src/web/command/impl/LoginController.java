@@ -3,6 +3,7 @@ package web.command.impl;
 import entities.User;
 import services.UserService;
 import services.impl.UserServiceImpl;
+import web.auth.Encoder;
 import web.command.Controller;
 
 import javax.servlet.RequestDispatcher;
@@ -11,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by yslabko on 08/13/2017.
- */
+
 public class LoginController implements Controller {
     UserService userService = UserServiceImpl.getInstance();
 
@@ -28,8 +27,8 @@ public class LoginController implements Controller {
             return;
         }
         User user = userService.getByLogin(login);
-//        if (user != null && user.getPassword().equals(Encoder.encode(password))) {
-        if (user != null && password.equals(user.getPassword())) {
+        if (user != null && user.getPassword().equals(Encoder.encode(password))) {
+//        if (user != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("user", user);
             String contextPath = req.getContextPath();
             resp.sendRedirect(contextPath + "/frontController?command=stations");

@@ -17,7 +17,7 @@ public class MyAttributeListener implements HttpSessionAttributeListener {
         } else if (currentAttributeName.equals(urlAttr)) {
             StringBuffer currentValueStr = (StringBuffer) ev.getValue();
             System.out.println("в Session добавлен URL=" + currentValueStr);
-        } else System.out.println("добавлен новый атрибут");
+        } else System.out.println("добавлен новый атрибут" + ev.toString());
     }
 
     public void attributeRemoved(HttpSessionBindingEvent ev) {

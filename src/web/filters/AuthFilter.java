@@ -24,12 +24,11 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-                         FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         CommandType type = RequestHandler.getCommand(req);
-        if (!CommandType.LOGIN.equals(type)) {
+        if (!CommandType.LOGIN.equals(type) && !CommandType.REGISTRATION.equals(type)) {
             String contextPath = req.getContextPath();
             HttpSession session = req.getSession();
             if ((session.getAttribute("user") == null)) {

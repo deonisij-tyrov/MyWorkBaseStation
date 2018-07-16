@@ -16,22 +16,22 @@
             <c:if test="${empty user or not empty user and user.role eq 'USER'}">
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <c:set var="navName" value="Товары"/>
+                        <c:set var="navName" value="Станции"/>
                         <c:choose>
-                            <c:when test="${pageName eq 'Products'}">
+                            <c:when test="${pageName eq 'Stations'}">
                                 <li class="active"><a href="#">${navName}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="${pageContext.request.contextPath}/frontController?command=products">${navName}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/frontController?command=stations">${navName}</a></li>
                             </c:otherwise>
                         </c:choose>
-                        <c:set var="navName">Заказы</c:set>
+                        <c:set var="navName">регистрация</c:set>
                         <c:choose>
-                            <c:when test="${pageName eq 'Orders'}">
+                            <c:when test="${pageName eq 'Registration'}">
                                 <li class="active"><a href="#">${navName}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="${pageContext.request.contextPath}/frontController?command=orders">${navName}</a></li>
+                                <li><a href="${pageContext.request.contextPath}/frontController?command=registration">${navName}</a></li>
                             </c:otherwise>
                         </c:choose>
                     </ul>

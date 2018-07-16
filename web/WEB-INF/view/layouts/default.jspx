@@ -41,6 +41,6 @@
         <jsp:include page="${bodyUrl}"/>
     </div>
 </div>
-<jsp:directive.include file="../common/footer.jspx"/>
+<jsp:directive.include file="../common/footer.jsp"/>
 </body>
 </html>

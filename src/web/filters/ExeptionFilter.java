@@ -16,8 +16,10 @@ public class ExeptionFilter implements javax.servlet.Filter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {
+            e.printStackTrace();
             servletRequest.setAttribute("errorMessage", e.getMessage());
             servletRequest.getRequestDispatcher("/WEB-INF/view/error.jsp").forward(servletRequest, servletResponse);
+
         }
     }
 

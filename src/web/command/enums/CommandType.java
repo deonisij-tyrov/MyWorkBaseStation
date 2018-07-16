@@ -11,7 +11,6 @@ import web.command.impl.*;
 public enum CommandType {
     LOGIN("login.jsp", "Login", new LoginController()),
     LOGOUT("login.jsp", "Logout", new LogoutController()),
-    //    ORDERS("orders/main.jsp", "Orders", new OrderController()),
     BASE_STATION("stations/main.jsp", "Stations", new BaseStationController()),
     GET_CELL("cells/main.jsp", "Cells", new CellController()),
     SET_CELL("cells/setcell.jsp", "Setcell", new ModifyCellController()),

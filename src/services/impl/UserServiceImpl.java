@@ -45,7 +45,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
         try {
             return userDao.save(user);
         } catch (SQLException e) {
-            throw new ServiceRuntimeExeption("Error getting User by login" + user);
+            throw new ServiceRuntimeExeption("Error save User by login" + user);
         }
     }
 }

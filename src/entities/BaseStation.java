@@ -1,17 +1,13 @@
 package entities;
 
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 
-@Data
-@NoArgsConstructor
 public class BaseStation {
     List<Cell> cells;
     private long id;
     private String name;
+
 
     public BaseStation(long id, String name) {
         this.id = id;
@@ -22,5 +18,33 @@ public class BaseStation {
         this.id = id;
         this.name = name;
         this.cells = cells;
+    }
+
+    public List<Cell> getCells() {
+        return cells;
+    }
+
+    public void setCells(List<Cell> cells) {
+        this.cells = cells;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BaseStation() {
+
     }
 }

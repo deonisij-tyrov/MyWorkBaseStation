@@ -24,6 +24,13 @@ public class RegistrationUserController implements Controller {
         String userLogin = req.getParameter("userlogin");
         String password1 = req.getParameter("password1");
         String password2 = req.getParameter("password2");
+
+        if (userLogin == null || password1 == null || password2 == null) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
+            req.setAttribute("title", "Login form");
+            dispatcher.forward(req, resp);
+            return;
+        }
         LocalDate date = LocalDate.parse(req.getParameter("userbirthday"), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         User user = new User();
         if (password1.equals(password2)) {
@@ -35,7 +42,7 @@ public class RegistrationUserController implements Controller {
         }
         req.setAttribute("infoMsg", "Added new user");
 
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/cells/registration.jsp");
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/login.jsp");
         dispatcher.forward(req, resp);
     }
 }

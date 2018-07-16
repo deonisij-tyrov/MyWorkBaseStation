@@ -1,13 +1,10 @@
 package dao.impl;
 
-import com.mysql.jdbc.Statement;
+
 import dao.UserDao;
 import entities.User;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * Class UserDaoImpl
@@ -16,7 +13,7 @@ import java.sql.SQLException;
  */
 public class UserDaoImpl extends AbstractDao implements UserDao {
     private static final String getUser = "SELECT * FROM USER WHERE LOGIN=?";
-    private static final String saveUser = "INSERT INTO USER (LOGIN, PASSWORD, NAME, BIRTHDAY, STATUS) VALUES ('?, ?, ?, ? ,'ACTIVE');";
+    private static final String saveUser = "INSERT INTO USER (LOGIN, PASSWORD, NAME, BIRTHDAY, STATUS) VALUES (?, ?, ?, ? ,'ACTIVE');";
     private static volatile UserDao INSTANCE = null;
     private PreparedStatement psGetByLogin;
 
@@ -53,7 +50,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         psCreate.setString(1, user.getLogin());
         psCreate.setString(2, user.getPassword());
         psCreate.setString(3, user.getName());
-        psCreate.setDate(4, new Date(user.getDate().getYear(), user.getDate().getMonthValue(), user.getDate().getDayOfMonth()));
+        psCreate.setDate(4, Date.valueOf(user.getDate()));
         psCreate.executeUpdate();
         ResultSet resultSet = psCreate.getGeneratedKeys();
         close(resultSet);
