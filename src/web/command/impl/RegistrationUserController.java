@@ -39,10 +39,10 @@ public class RegistrationUserController implements Controller {
             user.setLogin(userLogin);
             user.setDate(date);
             userService.save(user);
+            req.setAttribute("infoMsg", "Added new user");
+        } else {
+            req.setAttribute("infoMsg", "Passwords do not match");
         }
-        req.setAttribute("infoMsg", "Added new user");
-
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/login.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=login").forward(req, resp);
     }
 }

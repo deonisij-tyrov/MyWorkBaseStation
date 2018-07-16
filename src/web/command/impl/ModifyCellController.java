@@ -30,7 +30,7 @@ public class ModifyCellController implements Controller {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/view/cells/setcell.jsp");
-        dispatcher.forward(req, resp);
+//        RequestDispatcher dispatcher = req.getRequestDispatcher(req.getContextPath() + "/frontController?command=setcell");
+//        dispatcher.forward(req, resp);
     }
 }
