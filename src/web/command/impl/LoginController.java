@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Created by yslabko on 08/13/2017.
- */
+
 public class LoginController implements Controller {
     UserService userService = UserServiceImpl.getInstance();
 
@@ -22,7 +20,7 @@ public class LoginController implements Controller {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        if (login==null || password==null) {
+        if (login == null || password == null) {
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             req.setAttribute("title", "Login form");
             dispatcher.forward(req, resp);
@@ -33,7 +31,7 @@ public class LoginController implements Controller {
 //        if (user != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("user", user);
             String contextPath = req.getContextPath();
-            resp.sendRedirect(contextPath+ "/frontController?command=orders");
+            resp.sendRedirect(contextPath + "/frontController?command=stations");
             return;
         } else {
             req.setAttribute("errorMsg", "Invalid Login or Password");

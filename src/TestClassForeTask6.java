@@ -3,19 +3,28 @@ import db.ConnectionManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 public class TestClassForeTask6 {
     private static Connection connection = ConnectionManager.getConnection();
 
     public static void main(String[] args) {
         try {
+            NumberFormat numberFormat = NumberFormat.getNumberInstance();
+            try {
+                Long cellId = numberFormat.parse("1").longValue();
+                System.out.println(cellId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
 //            task1();
 //            deleteTest();
 //            task2();
 //            deleteTest();
             task3();
-            deleteTest();
+//            deleteTest();
 //            task4();
 ////            deleteTest();
 

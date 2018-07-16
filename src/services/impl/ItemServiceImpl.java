@@ -9,9 +9,8 @@ import services.ServiceRuntimeExeption;
 import java.sql.SQLException;
 
 public class ItemServiceImpl implements ItemService {
-    private ItemDao itemDao = ItemDaoImpl.getInstance();
     private static volatile ItemService INSTANCE = null;
-
+    private ItemDao itemDao = ItemDaoImpl.getInstance();
 
     public static ItemService getInstance() {
         ItemService itemService = INSTANCE;

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 /**
  * Class FrontController
- *
+ * <p>
  * Created by yslabko on 08/11/2017.
  */
 @WebServlet(urlPatterns = "/frontController")

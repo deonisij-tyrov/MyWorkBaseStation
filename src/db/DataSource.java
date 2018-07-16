@@ -11,12 +11,11 @@ import java.util.ResourceBundle;
 public class DataSource {
 
     private static DataSource datasource;
-    private ComboPooledDataSource pooledDatasource;
-
     private final String URL;
     private final String DRIVER;
     private final String USER;
     private final String PASSWORD;
+    private ComboPooledDataSource pooledDatasource;
 
     {
         ResourceBundle rb = ResourceBundle.getBundle("db");

@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="MyWorkBaseStation:war exploded">
+  <artifact type="exploded-war" build-on-make="true" name="MyWorkBaseStation:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/MyWorkBaseStation_war_exploded</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
@@ -7,15 +7,15 @@
           <element id="module-output" name="MyWorkBaseStation" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
           <element id="library" level="project" name="c3p0:c3p0:0.9.1" />
           <element id="library" level="project" name="jstl-1.2" />
           <element id="library" level="project" name="standard" />
-          <element id="library" level="project" name="lombok" />
           <element id="library" level="project" name="junit-4.12" />
+          <element id="library" level="project" name="servlet-api" />
+          <element id="library" level="project" name="mysql-connector-java-5.1.40-bin" />
         </element>
       </element>
-      <element id="javaee-facet-resources" facet="MyWorkBaseStation/web/Web" />
+      <element id="module-output" name="MyWorkBaseStation" />
     </root>
   </artifact>
 </component>

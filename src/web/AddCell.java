@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet("/add")
 public class AddCell extends HttpServlet {
     private CellService cellService = CellServiceImpl.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.getWriter().write("<html>" +
@@ -38,6 +39,6 @@ public class AddCell extends HttpServlet {
         int band = Integer.parseInt(req.getParameter("band"));
         cellService.save(new Cell(name, sector, power, bsNumber, band));
 //        System.out.println(new Cell(name, sector, power, bsNumber, band).toString());
-        doGet(req,resp);
+        doGet(req, resp);
     }
 }

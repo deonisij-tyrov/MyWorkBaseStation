@@ -2,7 +2,6 @@ package dao;
 
 import entities.BaseStation;
 import entities.Board;
-import entities.Cell;
 
 import java.sql.SQLException;
 import java.util.List;
