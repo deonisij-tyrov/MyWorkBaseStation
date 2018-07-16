@@ -8,7 +8,7 @@
     Товары
     <div class="productTable">
         <c:forEach var="cell" items="${products}" varStatus="status">
-            <div id="${cell.id}">${cell.name} ${cell.model} ${cell.sector}</div>
+            <div id="${cell.id}">${cell.name} $ ${cell.sector}</div>
         </c:forEach>
     </div>
 </div>

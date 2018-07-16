@@ -12,6 +12,7 @@
           <element id="library" level="project" name="jstl-1.2" />
           <element id="library" level="project" name="standard" />
           <element id="library" level="project" name="lombok" />
+          <element id="library" level="project" name="junit-4.12" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="MyWorkBaseStation/web/Web" />

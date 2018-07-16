@@ -22,7 +22,7 @@ public class BaseStationController implements Controller {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getSession().setAttribute("products", cellService.getByBaseStation(new BaseStation(1,"test")));
+        req.getSession().setAttribute("products", cellService.getByBaseStation(new BaseStation(0,"test")));
         req.getSession().setAttribute("counter", 2);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
