@@ -5,7 +5,6 @@ import services.CellService;
 import services.impl.CellServiceImpl;
 import web.command.Controller;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,7 +29,8 @@ public class ModifyCellController implements Controller {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-//        RequestDispatcher dispatcher = req.getRequestDispatcher(req.getContextPath() + "/frontController?command=setcell");
-//        dispatcher.forward(req, resp);
+        req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
+//        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=login").forward(req, resp);
+//        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=setcell").forward(req, resp);;
     }
 }
