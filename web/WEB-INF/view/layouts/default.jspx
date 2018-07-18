@@ -15,23 +15,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assests/js/utils.js" type="text/javascript"><jsp:text/></script>
     ]]>
-    <style>
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-
-        /* Add a gray background color and some padding to the footer */
-        footer {
-            background-color: #f2f2f2;
-            padding: 25px;
-        }
-    </style>
-    <title>${title}</title>
-    <u:icon file="mvc-page-title.png"/>
 </head>
 <body>
-<com:header-navigation/>
+<jsp:directive.include file="../common/header.jsp"/>
 <div class="jumbotron">
     <div class="container text-center">
         <c:url var="bodyUrl" value="../login.jsp"></c:url>
