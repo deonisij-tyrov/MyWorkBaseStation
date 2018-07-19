@@ -15,17 +15,14 @@ public class CellController implements Controller {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        Long baseStationId = null;
         try {
-            Long baseStationId = numberFormat.parse(req.getParameter("stationid")).longValue();
-            req.getSession().setAttribute("stationid", baseStationId.toString());
-            req.getSession().setAttribute("cells", cellService.getByBaseStationId(baseStationId));
-            req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
+            baseStationId = numberFormat.parse(req.getParameter("stationid")).longValue();
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        req.getSession().setAttribute("stationid", baseStationId.toString());
+        req.getSession().setAttribute("cells", cellService.getByBaseStationId(baseStationId));
+        req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
-
-
 }

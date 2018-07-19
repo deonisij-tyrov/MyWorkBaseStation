@@ -4,7 +4,7 @@
     <c:if test="${not empty message}">INFO : ${message}</c:if> <br/>
 </div>
 <div>
-    Cells
+    Cells!!!!!
     <TABLE>
         <tr>
             <td width="5%">cellid</td>
@@ -26,13 +26,11 @@
                     <td width="5%"><input name="cellband" value=${cell.band}></td>
                     <td width="5%"><input type="submit" value="Изменить"></td>
                 </tr>
-
             </form>
             </c:forEach>
-
+        </div>
     </TABLE>
 
-</div>
 </div>
 
 

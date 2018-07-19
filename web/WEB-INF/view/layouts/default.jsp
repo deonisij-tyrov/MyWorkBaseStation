@@ -4,10 +4,9 @@
 <html lang="en">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
-    <jsp:directive.include file="../common/header.jsp"/>
 </head>
 <body>
-
+<jsp:directive.include file="../common/header.jsp"/>
 <div class="jumbotron">
     <div class="container text-center">
         <c:url var="bodyUrl" value="../login.jsp"></c:url>

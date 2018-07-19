@@ -1,29 +1,35 @@
+import dao.BaseStationDao;
+import dao.impl.BaseStationDaoImpl;
 import db.ConnectionManager;
+import entities.BaseStation;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.List;
 
 public class TestClassForeTask6 {
     private static Connection connection = ConnectionManager.getConnection();
 
     public static void main(String[] args) {
         try {
+            createSomeStations();
             NumberFormat numberFormat = NumberFormat.getNumberInstance();
             try {
                 Long cellId = numberFormat.parse("1").longValue();
-                System.out.println(cellId);
+//                System.out.println(cellId);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+
 
 //            task1();
 //            deleteTest();
 //            task2();
 //            deleteTest();
-            task3();
+//            task3();
 //            deleteTest();
 //            task4();
 ////            deleteTest();
@@ -89,6 +95,21 @@ public class TestClassForeTask6 {
     private static void deleteTest() throws SQLException {
         Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE FROM cell WHERE cell_name = 'test';");
+    }
+
+    private static void getSomeBaseStations() throws SQLException {
+        BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
+        List<BaseStation> baseStationList = baseStationDao.getSomeTen(0, 30);
+        for (BaseStation baseStation : baseStationList) {
+            System.out.println(baseStation.toString());
+        }
+    }
+
+    private static void createSomeStations() throws SQLException {
+        BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
+        for (int i = 0; i < 100; i++) {
+            baseStationDao.save(new BaseStation(i, "bs-" + i));
+        }
     }
 
 }

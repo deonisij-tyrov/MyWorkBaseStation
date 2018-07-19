@@ -93,4 +93,13 @@ public class BaseStationServiceImpl implements BaseStationService {
             throw new ServiceRuntimeExeption("Error getting baseStations");
         }
     }
+
+    @Override
+    public List<BaseStation> getSomeTen(int from, int to) {
+        try {
+            return baseStationDao.getSomeTen(from, to);
+        } catch (SQLException e) {
+            throw new ServiceRuntimeExeption("Error getting baseStations");
+        }
+    }
 }
