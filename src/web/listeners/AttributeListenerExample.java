@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
 @WebListener
-public class MyAttributeListener implements HttpSessionAttributeListener {
+public class AttributeListenerExample implements HttpSessionAttributeListener {
     private String counterAttr = "counter";
 
     public void attributeAdded(HttpSessionBindingEvent ev) {

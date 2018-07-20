@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div>
-    <TABLE>
+    <table class="table table-striped table-hover table-responsive">
         <tr>
             <th>Station Id</th>
             <th>Statiom name</th>
@@ -15,8 +15,8 @@
                 </a></td>
             </tr>
         </c:forEach>
-        <jsp:directive.include file="../stations/paginationjs.jsp"/>
-    </TABLE>
+        <jsp:directive.include file="../stations/pagination.jsp"/>
+    </table>
 
 </div>
 

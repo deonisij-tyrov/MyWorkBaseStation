@@ -34,7 +34,7 @@ public class LoginController implements Controller {
             resp.sendRedirect(contextPath + "/frontController?command=stations&stationspage=1");
             return;
         } else {
-            req.setAttribute("errorMsg", "Invalid Login or Password");
+            req.setAttribute("errorMsg", "Invalid Login or password");
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             req.setAttribute("title", "Login form");
             dispatcher.forward(req, resp);

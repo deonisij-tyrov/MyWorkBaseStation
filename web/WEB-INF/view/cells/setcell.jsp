@@ -7,8 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<div class="container text-center">
-    <div class="information">${infoMsg}</div>
+<div class="form-group">
     <form action="frontController?command=cells&stationid=${stationid}" method="post">
         <td><input type="submit" value="Назад(локаль)"></td>
     </form>

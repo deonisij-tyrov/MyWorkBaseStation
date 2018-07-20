@@ -10,6 +10,7 @@
             color: #1033ff;
         }
     </style>
+    <title>${title}</title>
 </head>
 <body>
 <ul>
@@ -17,6 +18,8 @@
 </ul>
 <div class="jumbotron">
     <div class="container-fluid text-center">
+        <div style="color:#f27cff;" class="information">${infoMsg}</div>
+        <div style="color:#ff4038;" class="information">${errorMsg}</div>
         <c:url var="bodyUrl" value="../login.jsp"></c:url>
         <c:if test="${not empty sessionScope.pagePath}">
             <c:url var="bodyUrl" value='../${sessionScope.pagePath}'></c:url>

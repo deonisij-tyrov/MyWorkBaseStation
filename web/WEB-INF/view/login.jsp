@@ -4,8 +4,7 @@
 <fmt:setLocale value="${sessionScope.locale}"/>
 <fmt:setBundle basename="messages" var="i18n"/>
 <div class="container text-center">
-    <div class="error">${errorMsg}</div>
-    <div class="information">${infoMsg}</div>
+
     <form action="frontController?command=login" method="post">
         <div class="form-group">
             <a href="#" class="navbar-brand">

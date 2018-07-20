@@ -30,7 +30,5 @@ public class ModifyCellController implements Controller {
             e.printStackTrace();
         }
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
-//        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=login").forward(req, resp);
-//        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=setcell").forward(req, resp);;
     }
 }

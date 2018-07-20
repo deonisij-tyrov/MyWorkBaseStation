@@ -22,10 +22,9 @@ public class BaseStationController implements Controller {
         try {
             Integer pageNumber = numberFormat.parse(req.getParameter("stationspage")).intValue();
             int from = pageNumber * COUNT_BASE_STATIONS - COUNT_BASE_STATIONS;
-            req.getSession().removeAttribute("stations");
             req.getSession().setAttribute("stations", baseStationService.getSomeTen(from, COUNT_BASE_STATIONS));
+            req.setAttribute("currentPage", pageNumber);
             req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
-            req.getSession().setAttribute("stationspage", pageNumber.toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -35,11 +35,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     public User getByLogin(String login) throws SQLException {
         psGetByLogin = prepareStatement(getUser);
         psGetByLogin.setString(1, login);
-        ResultSet rs = psGetByLogin.executeQuery();
-        if (rs.next()) {
-            return populateEntity(rs);
+        ResultSet resultSet = psGetByLogin.executeQuery();
+        if (resultSet.next()) {
+            return populateEntity(resultSet);
         }
-        close(rs);
+        close(resultSet);
 
         return null;
     }
