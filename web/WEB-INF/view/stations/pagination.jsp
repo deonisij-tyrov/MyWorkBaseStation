@@ -16,8 +16,8 @@
                                      href="${pageContext.request.contextPath}/frontController?command=stations&stationspage=${stationspage +1}">${stationspage +1}</a>
             </li>
             <li class="page-item">
-                <a class="page-link"
-                   href="${pageContext.request.contextPath}/frontController?command=stations&stationspage=${stationspage +1}">
+                <a class="page-link" onclick="return location.href = '${pageContext.request.contextPath}/frontController?command=stations&stationspage=${stationspage +1}'"
+                   href="#">
                     > </a>
             </li>
         </ul>

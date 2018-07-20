@@ -12,7 +12,7 @@
                 <label for="exampleInputEmail1"><fmt:message bundle="${i18n}" key="login.login"/></label><br/>
                 <input type="text" name="login" maxlength="30" placeholder=<fmt:message bundle="${i18n}"
                                                                                         key="login.login"/>>
-
+            </a>
         </div>
         <div class="form-group">
             <a href="#" class="navbar-brand">

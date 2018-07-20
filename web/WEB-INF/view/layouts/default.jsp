@@ -2,13 +2,21 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
+    <style>
+        body {
+            color: #1033ff;
+        }
+    </style>
 </head>
 <body>
-<jsp:directive.include file="../common/header.jsp"/>
+<ul>
+    <jsp:directive.include file="../common/header.jsp"/>
+</ul>
 <div class="jumbotron">
-    <div class="container text-center">
+    <div class="container-fluid text-center">
         <c:url var="bodyUrl" value="../login.jsp"></c:url>
         <c:if test="${not empty sessionScope.pagePath}">
             <c:url var="bodyUrl" value='../${sessionScope.pagePath}'></c:url>

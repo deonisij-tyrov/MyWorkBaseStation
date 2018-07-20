@@ -15,7 +15,7 @@
                 </a></td>
             </tr>
         </c:forEach>
-        <jsp:directive.include file="../stations/pagination.jsp"/>
+        <jsp:directive.include file="../stations/paginationjs.jsp"/>
     </TABLE>
 
 </div>
