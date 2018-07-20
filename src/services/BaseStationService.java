@@ -19,4 +19,6 @@ public interface BaseStationService {
     Item addBoard(Board board, BaseStation baseStation);
 
     List<BaseStation> getAll();
+
+    List<BaseStation> getSomeTen(int from, int to);
 }

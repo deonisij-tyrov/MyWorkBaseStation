@@ -31,7 +31,7 @@ public class LoginController implements Controller {
 //        if (user != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("user", user);
             String contextPath = req.getContextPath();
-            resp.sendRedirect(contextPath + "/frontController?command=stations");
+            resp.sendRedirect(contextPath + "/frontController?command=stations&stationspage=1");
             return;
         } else {
             req.setAttribute("errorMsg", "Invalid Login or Password");

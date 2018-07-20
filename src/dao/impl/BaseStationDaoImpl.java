@@ -6,6 +6,7 @@ import entities.BaseStation;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
     private static final String getAllBaseStationQuery = "SELECT * FROM bs";
     private static final String creatBaseStationQuery = "INSERT INTO bs (id, name) VALUES (?, ?);";
     private static final String getBaseStationQuery = "SELECT * FROM bs WHERE id = ?;";
+    private static final String getSomeBaseStationQuery = "SELECT * FROM bs ORDER BY id LIMIT ?, ?;";
     private static volatile BaseStationDao INSTANCE = null;
 
     private BaseStationDaoImpl() {
@@ -49,17 +51,29 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
     }
 
     @Override
-    public BaseStation save(BaseStation baseStation) throws SQLException {
-        PreparedStatement preparedStatement = prepareStatement(getBaseStationQuery);
-        preparedStatement.setLong(1, baseStation.getId());
+    public List<BaseStation> getSomeTen(int from, int to) throws SQLException {
+        List<BaseStation> list = new ArrayList<>();
+        PreparedStatement preparedStatement = prepareStatement(getSomeBaseStationQuery);
+        preparedStatement.setInt(1, from);
+        preparedStatement.setInt(2, to);
         preparedStatement.executeQuery();
         ResultSet resultSet = preparedStatement.getResultSet();
-        if (!resultSet.next()) {
-            preparedStatement = prepareStatement(creatBaseStationQuery);
-            preparedStatement.setLong(1, baseStation.getId());
-            preparedStatement.setString(2, baseStation.getName());
-            preparedStatement.executeUpdate();
+        while (resultSet.next()) {
+            long id = resultSet.getInt(1);
+            String name = resultSet.getString(2);
+            list.add(new BaseStation(id, name));
         }
+        close(resultSet);
+        return list;
+    }
+
+    @Override
+    public BaseStation save(BaseStation baseStation) throws SQLException {
+        PreparedStatement preparedStatement = prepareStatement(creatBaseStationQuery, Statement.RETURN_GENERATED_KEYS);
+        preparedStatement.setLong(1, baseStation.getId());
+        preparedStatement.setString(2, baseStation.getName());
+        preparedStatement.executeUpdate();
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
         close(resultSet);
         return baseStation;
     }
