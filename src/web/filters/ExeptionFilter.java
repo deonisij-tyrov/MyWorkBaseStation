@@ -1,6 +1,7 @@
 package web.filters;
 
 import services.ServiceRuntimeExeption;
+import web.command.servlet.FrontController;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -24,35 +25,34 @@ public class ExeptionFilter implements javax.servlet.Filter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (ServiceRuntimeExeption e) {
-            req.setAttribute("errorMsg", e.getMessage());
-            System.out.println(e.getMessage());//log4j
-            e.printStackTrace();
+            FrontController.rootLogger.catching(e);
+            req.setAttribute("errorMsg", "Error connecting to database");
             try {
                 req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             } catch (ServletException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             } catch (IOException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             }
         } catch (RuntimeException e) {
-            e.printStackTrace();
+            FrontController.rootLogger.catching(e);
             req.setAttribute("errorMsg", "Error input value");
             try {
                 req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             } catch (ServletException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             } catch (IOException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            FrontController.rootLogger.catching(e);
             req.setAttribute("errorMsg", "Error getting the page");
             try {
                 req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             } catch (ServletException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             } catch (IOException e1) {
-                e1.printStackTrace();
+                FrontController.rootLogger.catching(e1);
             }
         }
     }

@@ -32,7 +32,7 @@ public class BaseStationServiceImplTest extends TestCase {
     @Test
     public void testDelete() throws SQLException {
         Assert.assertEquals(currentCell, newCell);
-//        baseStationService.delete(baseStation.getId());
+        baseStationService.delete(baseStation.getId());
         newCell = cellService.get(currentCell.getId());
         Assert.assertNotEquals(newCell, currentCell);
     }
