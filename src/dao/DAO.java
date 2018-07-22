@@ -10,4 +10,6 @@ public interface DAO<Entity, Key> {
     void update(Entity entity) throws SQLException;
 
     int delete(Key key) throws SQLException;
+
+
 }

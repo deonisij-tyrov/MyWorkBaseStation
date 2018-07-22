@@ -21,7 +21,9 @@ public class LogParametersFilter implements Filter {
         Enumeration attribuuts = req.getAttributeNames();
         while (attribuuts.hasMoreElements()) {
             String at = attribuuts.nextElement().toString();
-            System.out.println(at + req.getAttribute(at).toString());
+            System.out.println(req.getSession().getAttribute("user"));
+            System.out.println(req.getAttribute(at).toString());//log4j
+
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

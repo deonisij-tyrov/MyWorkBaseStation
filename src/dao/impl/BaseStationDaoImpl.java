@@ -16,6 +16,7 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
     private static final String getAllBaseStationQuery = "SELECT * FROM bs";
     private static final String creatBaseStationQuery = "INSERT INTO bs (id, name) VALUES (?, ?);";
     private static final String getBaseStationQuery = "SELECT * FROM bs WHERE id = ?;";
+    private static final String getCountBaseStationQuery = "SElect Count(*) FROM bs;";
     private static final String getSomeBaseStationQuery = "SELECT * FROM bs ORDER BY id LIMIT ?, ?;";
     private static volatile BaseStationDao INSTANCE = null;
 
@@ -48,6 +49,15 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
         }
         close(resultSet);
         return list;
+    }
+
+    @Override
+    public int count() throws SQLException {
+        PreparedStatement psReadAll = prepareStatement(getCountBaseStationQuery);
+        psReadAll.executeQuery();
+        ResultSet resultSet = psReadAll.getResultSet();
+        resultSet.next();
+        return resultSet.getInt(1);
     }
 
     @Override

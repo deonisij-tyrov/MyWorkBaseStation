@@ -1,5 +1,6 @@
 package web.command.servlet;
 
+import services.ServiceRuntimeExeption;
 import web.command.enums.CommandType;
 import web.handlers.RequestHandler;
 
@@ -9,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 
 /**
  * Class FrontController
@@ -19,7 +19,7 @@ import java.text.ParseException;
 @WebServlet(urlPatterns = "/frontController")
 public class FrontController extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, RuntimeException {
         CommandType commandType = RequestHandler.getCommand(req);
         commandType.getController().execute(req, resp);
     }

@@ -11,14 +11,14 @@
                                                                                  key="login.username"/></b></span>
             </div>
             <c:set var="fff" value="${requestScope.command}"/>
-            <input class="form-control" type="text" name="username" maxlength="30" value="${fff}"/><br>
+            <input class="form-control" type="text" name="username" maxlength="30" value="${username}"/><br>
         </div>
         <div class="input-group md-2">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1"><b><fmt:message bundle="${i18n}"
                                                                                  key="login.login"/></b></span>
             </div>
-            <input class="form-control" type="text" name="userlogin" maxlength="30"/><br>
+            <input class="form-control" type="text" name="userlogin" maxlength="30" value="${userlogin}"/><br>
         </div>
         <div class="input-group md-2">
             <div class="input-group-prepend">
@@ -39,7 +39,7 @@
                 <span class="input-group-text" id="basic-addon1"><b><fmt:message bundle="${i18n}"
                                                                                  key="login.birthday"/></b></span>
             </div>
-            <input class="form-control" id="dr" type="date" name="userbirthday" maxlength="20"/><br>
+            <input class="form-control" id="dr" type="date" name="userbirthday" maxlength="20" value="${userbirthday}"/><br>
         </div>
         <input type="submit" value=<fmt:message bundle="${i18n}" key="registration.button"/>>
     </form>

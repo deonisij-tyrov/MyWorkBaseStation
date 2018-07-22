@@ -1,5 +1,7 @@
 package web.filters;
 
+import services.ServiceRuntimeExeption;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +23,10 @@ public class ExeptionFilter implements javax.servlet.Filter {
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
         try {
             filterChain.doFilter(servletRequest, servletResponse);
-        } catch (Exception e) {
-            req.setAttribute("errorMsg", "error " + e.getMessage());
-            System.out.println(e.getMessage());
+        } catch (ServiceRuntimeExeption e) {
+            req.setAttribute("errorMsg", e.getMessage());
+            System.out.println(e.getMessage());//log4j
+            e.printStackTrace();
             try {
                 req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             } catch (ServletException e1) {
@@ -31,10 +34,26 @@ public class ExeptionFilter implements javax.servlet.Filter {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-//            e.printStackTrace();
-//            servletRequest.setAttribute("errorMessage", e.getMessage());
-//            servletRequest.getRequestDispatcher(req.getContextPath() + "/frontController?command=stations").forward(servletRequest, servletResponse);
-
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            req.setAttribute("errorMsg", "Error input value");
+            try {
+                req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
+            } catch (ServletException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            req.setAttribute("errorMsg", "Error getting the page");
+            try {
+                req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
+            } catch (ServletException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

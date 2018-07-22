@@ -1,6 +1,7 @@
 package web.command.impl;
 
 import entities.User;
+import services.ServiceRuntimeExeption;
 import services.UserService;
 import services.impl.UserServiceImpl;
 import web.auth.Encoder;
@@ -17,7 +18,7 @@ public class LoginController implements Controller {
     UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ServiceRuntimeExeption {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         if (login == null || password == null) {
@@ -34,7 +35,7 @@ public class LoginController implements Controller {
             resp.sendRedirect(contextPath + "/frontController?command=stations&stationspage=1");
             return;
         } else {
-            req.setAttribute("errorMsg", "Invalid Login or password");
+            req.setAttribute("errorMsg", rb.getString("login.errorpassword"));
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             req.setAttribute("title", "Login form");
             dispatcher.forward(req, resp);

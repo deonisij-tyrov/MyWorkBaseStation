@@ -11,22 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ModifyCellController implements Controller {
+public class AddCellController implements Controller {
     private CellService cellService = CellServiceImpl.getInstance();
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ServiceRuntimeExeption {
-        System.out.println("delete" + req.getAttribute("delete"));
-        System.out.println("chenge" + req.getAttribute("chenge"));
         String cellName = req.getParameter("cellname");
-        Long cellId = Long.parseLong(req.getParameter("cellid"));
         Integer cellSector = Integer.parseInt(req.getParameter("cellsector"));
         Integer cellPower = Integer.parseInt(req.getParameter("cellpower"));
         Long stationId = Long.parseLong(req.getParameter("bsid"));
         Integer cellBand = Integer.parseInt(req.getParameter("cellband"));
-        Cell modCell = new Cell(cellId, cellName, cellSector, cellPower, stationId, cellBand);
-        cellService.update(modCell);
-        req.setAttribute("infoMsg", "Set cell parameters " + modCell);
+        Cell addCell = new Cell(cellName, cellSector, cellPower, stationId, cellBand);
+        addCell = cellService.save(addCell);
+        req.setAttribute("infoMsg", "Set cell parameters " + addCell);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

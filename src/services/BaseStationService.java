@@ -20,5 +20,7 @@ public interface BaseStationService {
 
     List<BaseStation> getAll();
 
-    List<BaseStation> getSomeTen(int from, int to);
+    List<BaseStation> getPartOfStations(int from, int to);
+
+    int count();
 }

@@ -13,8 +13,10 @@ public enum CommandType {
     LOGOUT("login.jsp", "logout", new LogoutController()),
     BASE_STATION("stations/main.jsp", "stations", new BaseStationController()),
     GET_CELL("cells/main.jsp", "cells", new CellController()),
+    ADD_CELL("cells/setcell.jsp", "addcell", new AddCellController()),
+    REMOVE_CELL("cells/setcell.jsp", "removecell", new RemoveCellController()),
     SET_CELL("cells/setcell.jsp", "setcell", new ModifyCellController()),
-    REGISTRATION("registration.jsp","registration", new RegistrationUserController());
+    REGISTRATION("registration.jsp", "registration", new RegistrationUserController());
 
     private String pagePath;
     private String pageName;
@@ -29,7 +31,7 @@ public enum CommandType {
 
     public static CommandType getByPageName(String page) {
         for (CommandType type : CommandType.values()) {
-            if (type.pageName.equalsIgnoreCase(page) || GET_CELL.pageName.contains(page)) {
+            if (type.pageName.equalsIgnoreCase(page)) {
                 return type;
             }
         }

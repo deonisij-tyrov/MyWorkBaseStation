@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class CellController implements Controller {
+public class RemoveCellController implements Controller {
     private CellService cellService = CellServiceImpl.getInstance();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, ServiceRuntimeExeption {
-        Long baseStationId = Long.parseLong(req.getParameter("stationid"));
-        req.getSession().setAttribute("stationid", baseStationId.toString());
-        req.getSession().setAttribute("cells", cellService.getByBaseStationId(baseStationId));
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ServiceRuntimeExeption {
+        Long cellId = Long.parseLong(req.getParameter("cellid"));
+        cellService.delete(cellId);
+        req.setAttribute("infoMsg", "Removed cell " + cellId);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

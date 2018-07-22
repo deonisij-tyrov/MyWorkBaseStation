@@ -1,6 +1,7 @@
 package web.command.impl;
 
 import entities.User;
+import services.ServiceRuntimeExeption;
 import services.UserService;
 import services.impl.UserServiceImpl;
 import web.auth.Encoder;
@@ -18,20 +19,23 @@ RegistrationUserController implements Controller {
     UserService userService = UserServiceImpl.getInstance();
 
     @Override
-    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ServiceRuntimeExeption {
         String userName = req.getParameter("username");
         String userLogin = req.getParameter("userlogin");
         String password1 = req.getParameter("password1");
         String password2 = req.getParameter("password2");
 
-        if (userName == null || userLogin == null || password1 == null || password2 == null) {
-            req.setAttribute("infoMsg", "Fill in all the fields");
+        if (userName == "" || userLogin == "" || password1 == "" || password2 == "" || req.getParameter("userbirthday") == "") {
+            req.setAttribute("infoMsg", rb.getString("registration.fields"));
+            req.getSession().setAttribute("username", userName);
+            req.getSession().setAttribute("userlogin", userLogin);
+            req.getSession().setAttribute("userbirthday", req.getParameter("userbirthday"));
             req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             return;
         }
 
         if (userService.getByLogin(userName) != null) {
-            req.setAttribute("infoMsg", "User with this login already exists");
+            req.setAttribute("infoMsg", rb.getString("login.errorlogin"));
             req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             return;
         }
@@ -44,10 +48,10 @@ RegistrationUserController implements Controller {
             user.setLogin(userLogin);
             user.setDate(date);
             userService.save(user);
-            req.setAttribute("infoMsg", "Added new user");
+            req.setAttribute("infoMsg", rb.getString("login.addinfo"));
         } else {
-            req.setAttribute("infoMsg", "Passwords do not match");
+            req.setAttribute("infoMsg", rb.getString("password.error"));
         }
-        req.getRequestDispatcher(req.getContextPath() + "/frontController?command=login").forward(req, resp);
+        req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }
 }

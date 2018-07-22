@@ -1,10 +1,8 @@
 package services.impl;
 
 import dao.BaseStationDao;
-import dao.CellDao;
 import dao.ItemDao;
 import dao.impl.BaseStationDaoImpl;
-import dao.impl.CellDaoImpl;
 import dao.impl.ItemDaoImpl;
 import entities.BaseStation;
 import entities.Board;
@@ -18,7 +16,6 @@ import java.util.List;
 public class BaseStationServiceImpl implements BaseStationService {
     private static volatile BaseStationService INSTANCE = null;
     private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
-    private CellDao cellDao = CellDaoImpl.getInstance();
     private ItemDao itemDao = ItemDaoImpl.getInstance();
 
     public static BaseStationService getInstance() {
@@ -76,6 +73,15 @@ public class BaseStationServiceImpl implements BaseStationService {
     }
 
     @Override
+    public int count() {
+        try {
+            return baseStationDao.count();
+        } catch (SQLException e) {
+            throw new ServiceRuntimeExeption("Error getting number of stations");
+        }
+    }
+
+    @Override
     public Item addBoard(Board board, BaseStation baseStation) {
         Item item = new Item(board.getSeerial(), baseStation.getId());
         try {
@@ -95,7 +101,7 @@ public class BaseStationServiceImpl implements BaseStationService {
     }
 
     @Override
-    public List<BaseStation> getSomeTen(int from, int to) {
+    public List<BaseStation> getPartOfStations(int from, int to) {
         try {
             return baseStationDao.getSomeTen(from, to);
         } catch (SQLException e) {
