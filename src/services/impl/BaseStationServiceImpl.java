@@ -1,8 +1,10 @@
 package services.impl;
 
 import dao.BaseStationDao;
+import dao.CellDao;
 import dao.ItemDao;
 import dao.impl.BaseStationDaoImpl;
+import dao.impl.CellDaoImpl;
 import dao.impl.ItemDaoImpl;
 import entities.BaseStation;
 import entities.Board;
@@ -17,6 +19,7 @@ public class BaseStationServiceImpl implements BaseStationService {
     private static volatile BaseStationService INSTANCE = null;
     private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
     private ItemDao itemDao = ItemDaoImpl.getInstance();
+    private CellDao cellDao = CellDaoImpl.getInstance();
 
     public static BaseStationService getInstance() {
         BaseStationService baseStationService = INSTANCE;
@@ -63,7 +66,8 @@ public class BaseStationServiceImpl implements BaseStationService {
     @Override
     public int delete(Long id) {
         try {
-            itemDao.deleteByBaseStation(id);
+//            itemDao.deleteByBaseStation(id);
+            cellDao.deleteByBaseStation(id);
             return baseStationDao.delete(id);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error deleting baseStation" + id);
@@ -73,7 +77,7 @@ public class BaseStationServiceImpl implements BaseStationService {
     }
 
     @Override
-    public int count() {
+    public long count() {
         try {
             return baseStationDao.count();
         } catch (SQLException e) {

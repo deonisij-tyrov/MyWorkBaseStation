@@ -13,4 +13,6 @@ public interface CellDao extends DAO<Cell, Long> {
     void addCallsByBaseStation(BaseStation baseStation) throws SQLException;
 
     List<Cell> readAll() throws SQLException;
+
+    int deleteByBaseStation(long idBaseStation) throws SQLException;
 }

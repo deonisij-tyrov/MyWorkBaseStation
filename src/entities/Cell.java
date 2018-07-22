@@ -83,10 +83,8 @@ public class Cell {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
         Cell cell = (Cell) o;
-        return id == cell.id &&
-                sector == cell.sector &&
+        return sector == cell.sector &&
                 power == cell.power &&
                 bsNumber == cell.bsNumber &&
                 band == cell.band &&
@@ -111,4 +109,6 @@ public class Cell {
                 ", band=" + band +
                 '}';
     }
+
+
 }

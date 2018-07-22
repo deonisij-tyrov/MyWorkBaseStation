@@ -12,8 +12,9 @@ import java.sql.*;
  * Created by yslabko on 08/11/2017.
  */
 public class UserDaoImpl extends AbstractDao implements UserDao {
-    private static final String getUser = "SELECT * FROM USER WHERE LOGIN=?";
-    private static final String saveUser = "INSERT INTO USER (LOGIN, PASSWORD, NAME, BIRTHDAY, STATUS) VALUES (?, ?, ?, ? ,'ACTIVE');";
+    private static final String getUserQuery = "SELECT * FROM USER WHERE LOGIN=?";
+    private static final String saveUserQuery = "INSERT INTO USER (LOGIN, PASSWORD, NAME, BIRTHDAY, STATUS) VALUES (?, ?, ?, ? ,'ACTIVE');";
+    private static final String deleteUserQuery = "DELETE FROM USER WHERE USER_ID = ?;";
     private static volatile UserDao INSTANCE = null;
     private PreparedStatement psGetByLogin;
 
@@ -33,7 +34,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public User getByLogin(String login) throws SQLException {
-        psGetByLogin = prepareStatement(getUser);
+        psGetByLogin = prepareStatement(getUserQuery);
         psGetByLogin.setString(1, login);
         ResultSet resultSet = psGetByLogin.executeQuery();
         if (resultSet.next()) {
@@ -46,13 +47,15 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public User save(User user) throws SQLException {
-        PreparedStatement psCreate = prepareStatement(saveUser, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement psCreate = prepareStatement(saveUserQuery, Statement.RETURN_GENERATED_KEYS);
         psCreate.setString(1, user.getLogin());
         psCreate.setString(2, user.getPassword());
         psCreate.setString(3, user.getName());
         psCreate.setDate(4, Date.valueOf(user.getDate()));
         psCreate.executeUpdate();
         ResultSet resultSet = psCreate.getGeneratedKeys();
+        resultSet.next();
+        user.setId(resultSet.getInt(1));
         close(resultSet);
         return user;
     }
@@ -69,7 +72,9 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public int delete(Long id) throws SQLException {
-        return 0;
+        PreparedStatement psDelete = prepareStatement(deleteUserQuery);
+        psDelete.setLong(1, id);
+        return psDelete.executeUpdate();
     }
 
     private User populateEntity(ResultSet rs) throws SQLException {
@@ -78,8 +83,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         entity.setName(rs.getString(2));
         entity.setLogin(rs.getString(3));
         entity.setPassword(rs.getString(4));
-        entity.setStatus(rs.getString(6));
-        entity.setRole(rs.getString(7));
+        entity.setDate(rs.getDate(5).toLocalDate());
         return entity;
     }
 }

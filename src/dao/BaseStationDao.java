@@ -10,5 +10,5 @@ public interface BaseStationDao extends DAO<BaseStation, Long> {
 
     List<BaseStation> getSomeTen(int from, int to) throws SQLException;
 
-    int count() throws SQLException;
+    long count() throws SQLException;
 }

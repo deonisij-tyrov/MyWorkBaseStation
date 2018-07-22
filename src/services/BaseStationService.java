@@ -22,5 +22,5 @@ public interface BaseStationService {
 
     List<BaseStation> getPartOfStations(int from, int to);
 
-    int count();
+    long count();
 }

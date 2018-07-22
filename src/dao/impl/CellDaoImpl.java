@@ -3,7 +3,6 @@ package dao.impl;
 
 import dao.BaseStationDao;
 import dao.CellDao;
-import dao.DaoExeption;
 import entities.BaseStation;
 import entities.Cell;
 
@@ -18,6 +17,7 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
     private static final String deleteCellQuery = "DELETE FROM cell WHERE id = ?;";
     private static final String getReadCellByBaseStationQuery = "SELECT * FROM cell WHERE bs_id = ?;";
     private static final String getAllCellQuery = "SELECT * FROM cell";
+    private static final String deleteCellByBaseStationQuery = "DELETE FROM cell WHERE bs_id = ?;";
     private static volatile CellDao INSTANCE = null;
     private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
 
@@ -68,7 +68,7 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
             connection.commit();
         } catch (SQLException e) {
             connection.rollback();
-            e.printStackTrace();
+            throw new SQLException(e.getMessage());
         }
     }
 
@@ -83,6 +83,8 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
         psCreate.setLong(5, cell.getBand());
         psCreate.executeUpdate();
         ResultSet resultSet = psCreate.getGeneratedKeys();
+        resultSet.next();
+        cell.setId(resultSet.getInt(1));
         close(resultSet);
         return cell;
     }
@@ -108,11 +110,14 @@ public class CellDaoImpl extends AbstractDao implements CellDao {
     }
 
     @Override
-    public void update(Cell cell) throws SQLException, DaoExeption {
-        Long idBaseStation = cell.getBsNumber();
-        if (baseStationDao.get(idBaseStation) == null) {
-            throw new DaoExeption("Base station does not exist");
-        }
+    public int deleteByBaseStation(long idBaseStation) throws SQLException {
+        PreparedStatement preparedStatement = prepareStatement(deleteCellByBaseStationQuery);
+        preparedStatement.setLong(1, idBaseStation);
+        return preparedStatement.executeUpdate();
+    }
+
+    @Override
+    public void update(Cell cell) throws SQLException {
         PreparedStatement psUpdate = prepareStatement(updateCellQuery);
         psUpdate.setString(1, cell.getName());
         psUpdate.setInt(2, cell.getSector());

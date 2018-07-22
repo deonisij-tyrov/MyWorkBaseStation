@@ -52,7 +52,7 @@ public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
     }
 
     @Override
-    public int count() throws SQLException {
+    public long count() throws SQLException {
         PreparedStatement psReadAll = prepareStatement(getCountBaseStationQuery);
         psReadAll.executeQuery();
         ResultSet resultSet = psReadAll.getResultSet();

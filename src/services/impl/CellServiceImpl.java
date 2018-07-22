@@ -1,8 +1,10 @@
 package services.impl;
 
+import dao.BaseStationDao;
 import dao.CellDao;
-import dao.DaoExeption;
+import dao.impl.BaseStationDaoImpl;
 import dao.impl.CellDaoImpl;
+import entities.BaseStation;
 import entities.Cell;
 import services.CellService;
 import services.ServiceRuntimeExeption;
@@ -13,6 +15,7 @@ import java.util.List;
 public class CellServiceImpl extends AbstractService implements CellService {
     private static volatile CellService INSTANCE = null;
     private CellDao cellDao = CellDaoImpl.getInstance();
+    private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
 
     public static CellService getInstance() {
         CellService cellService = INSTANCE;
@@ -30,11 +33,13 @@ public class CellServiceImpl extends AbstractService implements CellService {
     @Override
     public Cell save(Cell cell) {
         try {
+            BaseStation baseStation = baseStationDao.get(cell.getBsNumber());
+            if (baseStation == null) {
+                throw new ServiceRuntimeExeption(String.format("Error creating cell %s:station does not exist", cell.toString()));
+            }
             cell = cellDao.save(cell);
         } catch (SQLException e) {
             throw new ServiceRuntimeExeption("Error creating cell" + cell);
-        } catch (DaoExeption e) {
-            throw new ServiceRuntimeExeption("Error creating cell" + e.getMessage());
         }
         return cell;
     }

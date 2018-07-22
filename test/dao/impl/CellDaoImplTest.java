@@ -3,25 +3,30 @@ package dao.impl;
 import dao.CellDao;
 import entities.Cell;
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.sql.SQLException;
 
 
 public class CellDaoImplTest {
-
+    @Rule
     private CellDao cellDAO = CellDaoImpl.getInstance();
 
     @Test
     public void fullTest() throws SQLException {
-        int countBeforeSave = cellDAO.readAll().size();
-        Cell cell = cellDAO.save(new Cell("005-S2", 2, 0, 000, 3));
-        int countAfterSave = cellDAO.readAll().size();
+        long countBeforeSave = cellDAO.readAll().size();
+        Cell cell = cellDAO.save(new Cell("test", 2, 0, 000, 3));
+        long countAfterSave = cellDAO.readAll().size();
         Assert.assertNotSame(countAfterSave, countBeforeSave);
         Cell readCell = cellDAO.get(cell.getId());
         Assert.assertEquals(cell, readCell);
 
-        cell.setPower(0);
+        cell.setPower(1);
+        cell.setSector(0);
+        cell.setBsNumber(1);
+        cell.setBand(1);
+        cellDAO.update(cell);
         readCell = cellDAO.get(cell.getId());
         Assert.assertEquals(cell, readCell);
 
