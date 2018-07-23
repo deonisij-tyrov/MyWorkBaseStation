@@ -5,11 +5,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;
 import java.io.IOException;
 
-/**
- * Class EncodingFilter
- * <p>
- * Created by yslabko on 08/11/2017.
- */
+
 @WebFilter(urlPatterns = {"/*",}, initParams = {@WebInitParam(name = "encoding", value = "UTF-8")})
 public class EncodingFilter implements Filter {
 

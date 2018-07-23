@@ -1,23 +1,22 @@
 package web.handlers;
 
+import org.apache.log4j.Logger;
 import web.command.enums.CommandType;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import static web.command.enums.CommandType.LOGIN;
 
-/**
- * Created by yslabko on 08/13/2017.
- */
 public class RequestHandler {
+    public static final Logger logger = Logger.getLogger("Global");
 
     public static CommandType getCommand(HttpServletRequest req) {
         String param = req.getParameter("command");
         if (param == null || "".equals(param)) {
             param = "login";
         }
-
 
         CommandType type = CommandType.getByPageName(param);
         req.setAttribute("title", type.getPageName());

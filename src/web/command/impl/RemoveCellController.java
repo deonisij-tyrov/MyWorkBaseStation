@@ -4,6 +4,7 @@ import services.CellService;
 import services.ServiceRuntimeExeption;
 import services.impl.CellServiceImpl;
 import web.command.Controller;
+import web.handlers.RequestHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ public class RemoveCellController implements Controller {
     public void execute(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException, ServiceRuntimeExeption {
         Long cellId = Long.parseLong(req.getParameter("cellid"));
         cellService.delete(cellId);
+        RequestHandler.logger.info("Removed cell " + cellId);
         req.setAttribute("infoMsg", "Removed cell " + cellId);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }

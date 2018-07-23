@@ -1,5 +1,7 @@
 package web.filters;
 
+import web.handlers.RequestHandler;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +23,7 @@ public class LogParametersFilter implements Filter {
         Enumeration attribuuts = req.getAttributeNames();
         while (attribuuts.hasMoreElements()) {
             String at = attribuuts.nextElement().toString();
-            System.out.println(req.getSession().getAttribute("user"));
-            System.out.println(req.getAttribute(at).toString());//log4j
-
+            RequestHandler.logger.info(req.getAttribute(at).toString());
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

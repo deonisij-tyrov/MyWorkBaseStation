@@ -5,6 +5,7 @@ import services.CellService;
 import services.ServiceRuntimeExeption;
 import services.impl.CellServiceImpl;
 import web.command.Controller;
+import web.handlers.RequestHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class AddCellController implements Controller {
         Integer cellBand = Integer.parseInt(req.getParameter("cellband"));
         Cell addCell = new Cell(cellName, cellSector, cellPower, stationId, cellBand);
         addCell = cellService.save(addCell);
+        RequestHandler.logger.info(String.format("Set cell parameters " + addCell));
         req.setAttribute("infoMsg", "Set cell parameters " + addCell);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }

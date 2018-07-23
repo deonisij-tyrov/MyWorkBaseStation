@@ -4,9 +4,7 @@ package web.command.enums;
 import web.command.Controller;
 import web.command.impl.*;
 
-/**
- * Created by yslabko on 08/13/2017.
- */
+
 
 public enum CommandType {
     LOGIN("login.jsp", "login", new LoginController()),

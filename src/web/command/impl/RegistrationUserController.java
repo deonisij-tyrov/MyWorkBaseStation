@@ -6,6 +6,7 @@ import services.UserService;
 import services.impl.UserServiceImpl;
 import web.auth.Encoder;
 import web.command.Controller;
+import web.handlers.RequestHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ RegistrationUserController implements Controller {
         String password2 = req.getParameter("password2");
 
         if (userName == "" || userLogin == "" || password1 == "" || password2 == "" || req.getParameter("userbirthday") == "") {
+            RequestHandler.logger.info(rb.getString("registration.fields"));
             req.setAttribute("infoMsg", rb.getString("registration.fields"));
             req.getSession().setAttribute("username", userName);
             req.getSession().setAttribute("userlogin", userLogin);
@@ -35,6 +37,7 @@ RegistrationUserController implements Controller {
         }
 
         if (userService.getByLogin(userName) != null) {
+            RequestHandler.logger.info(rb.getString("login.errorlogin"));
             req.setAttribute("infoMsg", rb.getString("login.errorlogin"));
             req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
             return;
@@ -48,8 +51,10 @@ RegistrationUserController implements Controller {
             user.setLogin(userLogin);
             user.setDate(date);
             userService.save(user);
+            RequestHandler.logger.info(rb.getString("login.addinfo"));
             req.setAttribute("infoMsg", rb.getString("login.addinfo"));
         } else {
+            RequestHandler.logger.info(rb.getString("password.error"));
             req.setAttribute("infoMsg", rb.getString("password.error"));
         }
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);

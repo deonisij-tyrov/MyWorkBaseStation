@@ -5,6 +5,7 @@ import services.CellService;
 import services.ServiceRuntimeExeption;
 import services.impl.CellServiceImpl;
 import web.command.Controller;
+import web.handlers.RequestHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class ModifyCellController implements Controller {
         Integer cellBand = Integer.parseInt(req.getParameter("cellband"));
         Cell modCell = new Cell(cellId, cellName, cellSector, cellPower, stationId, cellBand);
         cellService.update(modCell);
+        RequestHandler.logger.info("Set cell parameters " + modCell);
         req.setAttribute("infoMsg", "Set cell parameters " + modCell);
         req.getRequestDispatcher(MAIN_PAGE).forward(req, resp);
     }

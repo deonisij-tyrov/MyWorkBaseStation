@@ -11,11 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-/**
- * Class AuthFilter
- * <p>
- * Created by yslabko on 08/11/2017.
- */
+
 @WebFilter(urlPatterns = {"/frontController"})
 public class AuthFilter implements Filter {
     @Override

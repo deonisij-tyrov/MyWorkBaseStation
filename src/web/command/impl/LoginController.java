@@ -6,6 +6,7 @@ import services.UserService;
 import services.impl.UserServiceImpl;
 import web.auth.Encoder;
 import web.command.Controller;
+import web.handlers.RequestHandler;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -29,12 +30,13 @@ public class LoginController implements Controller {
         }
         User user = userService.getByLogin(login);
         if (user != null && user.getPassword().equals(Encoder.encode(password))) {
-//        if (user != null && password.equals(user.getPassword())) {
             req.getSession().setAttribute("user", user);
             String contextPath = req.getContextPath();
             resp.sendRedirect(contextPath + "/frontController?command=stations&stationspage=1");
+            RequestHandler.logger.info(String.format("User %s login",req.getSession().getAttribute("user")));
             return;
         } else {
+            RequestHandler.logger.info(String.format(rb.getString("login.errorpassword")));
             req.setAttribute("errorMsg", rb.getString("login.errorpassword"));
             RequestDispatcher dispatcher = req.getRequestDispatcher(MAIN_PAGE);
             req.setAttribute("title", "Login form");
