@@ -10,13 +10,12 @@ import java.sql.SQLException;
 
 
 public class CellDaoImplTest {
-    @Rule
     private CellDao cellDAO = CellDaoImpl.getInstance();
 
     @Test
     public void fullTest() throws SQLException {
         long countBeforeSave = cellDAO.readAll().size();
-        Cell cell = cellDAO.save(new Cell("test", 2, 0, 000, 3));
+        Cell cell = cellDAO.save(new Cell("test", 2, 0, 0, 3));
         long countAfterSave = cellDAO.readAll().size();
         Assert.assertNotSame(countAfterSave, countBeforeSave);
         Cell readCell = cellDAO.get(cell.getId());

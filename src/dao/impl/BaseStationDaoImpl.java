@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BaseStationDaoImpl extends AbstractDao implements BaseStationDao {
-    private static final String updateBaseStationQuery = "UPDATE bs SET name = ? WHERE id = ?;";
-    private static final String deleteBaseStationQuery = "DELETE FROM bs WHERE id = ?;";
-    private static final String getAllBaseStationQuery = "SELECT * FROM bs";
-    private static final String creatBaseStationQuery = "INSERT INTO bs (id, name) VALUES (?, ?);";
-    private static final String getBaseStationQuery = "SELECT * FROM bs WHERE id = ?;";
-    private static final String getCountBaseStationQuery = "SElect Count(*) FROM bs;";
-    private static final String getSomeBaseStationQuery = "SELECT * FROM bs ORDER BY id LIMIT ?, ?;";
+    private static final String updateBaseStationQuery = "UPDATE BASE_STATION SET name = ? WHERE id = ?;";
+    private static final String deleteBaseStationQuery = "DELETE FROM BASE_STATION WHERE id = ?;";
+    private static final String getAllBaseStationQuery = "SELECT * FROM BASE_STATION";
+    private static final String creatBaseStationQuery = "INSERT INTO BASE_STATION (id, name) VALUES (?, ?);";
+    private static final String getBaseStationQuery = "SELECT * FROM BASE_STATION WHERE id = ?;";
+    private static final String getCountBaseStationQuery = "SElect Count(*) FROM BASE_STATION;";
+    private static final String getSomeBaseStationQuery = "SELECT * FROM BASE_STATION ORDER BY id LIMIT ?, ?;";
     private static volatile BaseStationDao INSTANCE = null;
 
     private BaseStationDaoImpl() {

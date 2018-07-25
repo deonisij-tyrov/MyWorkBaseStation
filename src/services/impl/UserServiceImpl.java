@@ -7,6 +7,7 @@ import services.ServiceRuntimeExeption;
 import services.UserService;
 
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Class UserServiceImpl
@@ -36,7 +37,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
         try {
             return userDao.getByLogin(login);
         } catch (SQLException e) {
-            throw new ServiceRuntimeExeption("Error getting User by login" + login);
+            throw new ServiceRuntimeExeption("Error getting User by login " + login);
         }
     }
 
@@ -45,7 +46,27 @@ public class UserServiceImpl extends AbstractService implements UserService {
         try {
             return userDao.save(user);
         } catch (SQLException e) {
-            throw new ServiceRuntimeExeption("Error save User by login" + user);
+            throw new ServiceRuntimeExeption("Error save User by login " + user);
+        }
+    }
+
+    @Override
+    public List<User> readAll() {
+        try {
+            return userDao.readAll();
+        } catch (SQLException e) {
+            throw new ServiceRuntimeExeption("Error get all users");
+        }
+    }
+
+    @Override
+    public void setStatusUser(long id, String status) {
+        try {
+            User user = userDao.get(id);
+            user.setStatus(status);
+            userDao.update(user);
+        } catch (SQLException e) {
+            throw new ServiceRuntimeExeption("Error update users status " + id);
         }
     }
 }

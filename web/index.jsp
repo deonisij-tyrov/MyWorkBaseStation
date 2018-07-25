@@ -4,7 +4,6 @@
 <head>
     <title>Shop</title>
 </head>
-
 <jsp:forward page="/frontController?command=login"/>
 <body>
 </form>

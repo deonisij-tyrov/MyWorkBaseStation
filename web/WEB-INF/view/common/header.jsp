@@ -41,6 +41,12 @@
             <li><a class="nav-link" style="color:#e1fcff;"><span
                     class="text"><fmt:message
                     bundle="${i18n}" key="login.greeting"/>, ${user.name}</span></a></li>
+                    <c:if test="${user.role == 'ADMIN'}">
+            <li><a class="nav-link" style="color:#e1fcff;"
+                   href="${pageContext.request.contextPath}/frontController?command=users"><span
+                    class="text"><fmt:message
+                    bundle="${i18n}" key="admin.users"/></span></a></li>
+                    </c:if>
             <li><a class="nav-link" style="color:#e1fcff;"
                    href="${pageContext.request.contextPath}/frontController?command=logout"><span
                     class="text"><fmt:message

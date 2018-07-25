@@ -5,7 +5,6 @@ import web.command.Controller;
 import web.command.impl.*;
 
 
-
 public enum CommandType {
     LOGIN("login.jsp", "login", new LoginController()),
     LOGOUT("login.jsp", "logout", new LogoutController()),
@@ -14,6 +13,7 @@ public enum CommandType {
     ADD_CELL("cells/setcell.jsp", "addcell", new AddCellController()),
     REMOVE_CELL("cells/setcell.jsp", "removecell", new RemoveCellController()),
     SET_CELL("cells/setcell.jsp", "setcell", new ModifyCellController()),
+    GET_USER("user/main.jsp", "users", new UserController()),
     REGISTRATION("registration.jsp", "registration", new RegistrationUserController());
 
     private String pagePath;

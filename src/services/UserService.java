@@ -2,6 +2,9 @@ package services;
 
 import entities.User;
 
+import java.sql.SQLException;
+import java.util.List;
+
 /**
  * Class UserService
  * <p>
@@ -12,4 +15,8 @@ public interface UserService {
     User getByLogin(String login);
 
     User save(User user);
+
+    List<User> readAll();
+
+    void setStatusUser(long id, String status);
 }

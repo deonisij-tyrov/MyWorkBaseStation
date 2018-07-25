@@ -2,9 +2,12 @@ package dao.impl;
 
 
 import dao.UserDao;
+import entities.Cell;
 import entities.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class UserDaoImpl
@@ -15,8 +18,11 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     private static final String getUserQuery = "SELECT * FROM USER WHERE LOGIN=?";
     private static final String saveUserQuery = "INSERT INTO USER (LOGIN, PASSWORD, NAME, BIRTHDAY, STATUS) VALUES (?, ?, ?, ? ,'ACTIVE');";
     private static final String deleteUserQuery = "DELETE FROM USER WHERE USER_ID = ?;";
+    private static final String getAllUserQuery = "SELECT * FROM USER;";
+    private static final String updateUserQuery = "UPDATE user SET NAME = ?, BIRTHDAY = ?,STATUS = ?, ROLE = ? WHERE USER_ID=?;";
+    private static final String getUserByIdUserQuery ="SELECT * FROM user WHERE USER_ID=?;";
     private static volatile UserDao INSTANCE = null;
-    private PreparedStatement psGetByLogin;
+
 
     public static UserDao getInstance() {
         UserDao userDao = INSTANCE;
@@ -34,6 +40,7 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public User getByLogin(String login) throws SQLException {
+        PreparedStatement psGetByLogin;
         psGetByLogin = prepareStatement(getUserQuery);
         psGetByLogin.setString(1, login);
         ResultSet resultSet = psGetByLogin.executeQuery();
@@ -62,12 +69,27 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
 
     @Override
     public User get(Long id) throws SQLException {
+        PreparedStatement preparedStatement;
+        preparedStatement = prepareStatement(getUserByIdUserQuery);
+        preparedStatement.setLong(1, id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            return populateEntity(resultSet);
+        }
+        close(resultSet);
+
         return null;
     }
 
     @Override
     public void update(User user) throws SQLException {
-
+        PreparedStatement psUpdate = prepareStatement(updateUserQuery);
+        psUpdate.setString(1, user.getName());
+        psUpdate.setDate(2, Date.valueOf(user.getDate()));
+        psUpdate.setString(3, user.getStatus());
+        psUpdate.setString(4, user.getRole());
+        psUpdate.setLong(5, user.getId());
+        psUpdate.executeUpdate();
     }
 
     @Override
@@ -84,6 +106,21 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         entity.setLogin(rs.getString(3));
         entity.setPassword(rs.getString(4));
         entity.setDate(rs.getDate(5).toLocalDate());
+        entity.setStatus(rs.getString(6));
+        entity.setRole(rs.getString(7));
         return entity;
+    }
+
+    @Override
+    public List<User> readAll() throws SQLException {
+        PreparedStatement preparedStatement = prepareStatement(getAllUserQuery);
+        ArrayList<User> list = new ArrayList<>();
+        preparedStatement.executeQuery();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        while (resultSet.next()) {
+            list.add( populateEntity(resultSet));
+        }
+        close(resultSet);
+        return list;
     }
 }

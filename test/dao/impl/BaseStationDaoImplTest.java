@@ -10,8 +10,8 @@ import java.sql.SQLException;
 
 
 public class BaseStationDaoImplTest {
-    @Rule
-    private BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
+
+    public BaseStationDao baseStationDao = BaseStationDaoImpl.getInstance();
 
     @Test
     public void fullTest() throws SQLException {

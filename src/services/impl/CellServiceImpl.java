@@ -10,6 +10,7 @@ import services.CellService;
 import services.ServiceRuntimeExeption;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CellServiceImpl extends AbstractService implements CellService {

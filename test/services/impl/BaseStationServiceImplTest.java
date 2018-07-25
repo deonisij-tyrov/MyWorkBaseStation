@@ -13,9 +13,7 @@ import services.CellService;
 import java.sql.SQLException;
 
 public class BaseStationServiceImplTest extends TestCase {
-    @Rule
     private BaseStationService baseStationService = BaseStationServiceImpl.getInstance();
-    @Rule
     private CellService cellService = CellServiceImpl.getInstance();
     private BaseStation baseStation;
     private Cell currentCell;

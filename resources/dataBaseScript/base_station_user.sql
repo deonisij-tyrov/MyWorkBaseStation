@@ -1,0 +1,1 @@
+INSERT INTO base_station.user (USER_ID, NAME, LOGIN, PASSWORD, BIRTHDAY, STATUS, ROLE) VALUES (6, 'denis', 'denis', 'w4ddB/RMQi87O8AZwj4Wrg==', '2018-07-01', 'ACTIVE', 'ADMIN');

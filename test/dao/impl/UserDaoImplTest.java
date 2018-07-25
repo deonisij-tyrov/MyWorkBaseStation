@@ -13,7 +13,7 @@ import java.time.LocalDate;
 
 
 public class UserDaoImplTest {
-    @Rule
+
     UserDao userDao = UserDaoImpl.getInstance();
 
     @Test
